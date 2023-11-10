@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Secular+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1" rel="stylesheet" />
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <title>OuterTune</title>
+</head>
+<body>
+    <md-fab aria-label="Add" class="fab" onclick="document.getElementById('url-dialog').setAttribute('open', '')">
+        <md-icon slot="icon">add</md-icon>
+    </md-fab>
+    <div class="top-bar">
+        <md-icon-button class="ham-menu" onclick="hamMenu()">
+            <md-icon id="ham-menu-icn">menu</md-icon>
+        </md-icon-button>
+        <h1>OuterTune</h1>
+    </div>
+    <div class="menu" id="menu">
+        <div class="menu-top-bar">
+            <md-icon-button class="menu-add-btn" onclick="document.getElementById('url-dialog').setAttribute('open', '')">
+                <md-icon>add</md-icon>
+            </md-icon-button>
+        </div>
+        <div class="playlists" id="playlists">
+            <div class="playlist-item" id="playlist-item">
+                <img src="">
+                <span></span>
+                <md-icon-button onclick="removeFromPlaylist(this.parentElement)">
+                    <md-icon>delete</md-icon>
+                </md-icon-button>
+            </div>
+        </div>
+    </div>
+    <div class="player">
+        <script src="bundle.js"></script>
+        <script src="user.js"></script>
+        <img src="icon.png" id="thumbnail" class="thumbnail">
+        <h1 id="video-title"></h1>
+        <a id="video-channel" target="_blank"></a>
+        <md-slider id="player_slider" onclick="updateVideoTime()" value="0" class="slider" onmousedown="onMouseDownSlider()" onmouseup="onMouseUpSlider()"></md-slider>
+        <div class="player-controls">
+            <md-icon-button onclick="prevVideo()">
+                <md-icon>skip_previous</md-icon>
+            </md-icon-button>
+            <md-filled-icon-button toggle onclick="togglePlay()" id="play_btn" selected>
+                <md-icon>pause</md-icon>
+                <md-icon slot="selected">play_arrow</md-icon>
+            </md-filled-icon-button>
+            <md-icon-button onclick="nextVideo()">
+                <md-icon>skip_next</md-icon>
+            </md-icon-button>
+        </div>
+        <div id="yt-player"></div>
+    </div>
+    <md-dialog id="url-dialog"> 
+        <div slot="headline">
+          Add to queue
+        </div>
+        <form slot="content" id="form-id" method="dialog">
+            <md-filled-text-field label="Video ID" id="video-id-label">
+            </md-filled-text-field>
+        </form>
+        <div slot="actions">
+            <md-text-button form="form-id" value="cancel">Cancel</md-text-button>
+            <md-text-button form="form-id" onclick="addToPlaylist(document.getElementById('video-id-label').value)">Ok</md-text-button>
+        </div>
+    </md-dialog>
+</body>
+</html>
