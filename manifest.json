@@ -1,6 +1,6 @@
 {
     "name": "OuterTune",
-    "short_name" : "OT",
+    "short_name" : "OuterTune",
     "start_url": "/OuterTune/index.html",
     "scope" : "/OuterTune/",
     "icons": [
@@ -15,7 +15,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffee00",
-    "background_color": "#ffee00",
+    "theme_color": "#17130C",
+    "background_color": "#17130C",
     "display": "standalone"
  }
