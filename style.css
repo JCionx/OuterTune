@@ -44,6 +44,28 @@ p, h1, h2, h3, h4, h5, h6, span, a {
     background-color: var(--md-sys-color-primary);
 }
 
+@media (max-height: 675px) {
+    .thumbnail {
+        width: 250px;
+        height: 250px;
+    }    
+}
+
+@media (max-height: 625px) {
+    .thumbnail {
+        width: 200px;
+        height: 200px;
+    }
+    
+}
+
+@media (max-height: 575px) {
+    .thumbnail {
+        width: 150px;
+        height: 1%;
+    }    
+}
+
 .player {
     display: flex;
     flex-direction: column;
