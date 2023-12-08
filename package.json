@@ -3,6 +3,8 @@
     "@material/material-color-utilities": "^0.2.7",
     "@material/web": "^1.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "rollup": "^4.3.0"
+    "generate-service-worker": "^2.0.5",
+    "rollup": "^4.7.0",
+    "sw-precache": "^5.2.1"
   }
 }

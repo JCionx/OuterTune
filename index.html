@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1" rel="stylesheet" />
     <link rel="shortcut icon" href="icon-192.png" type="image/x-icon">
     <link rel="manifest" href="manifest.json" />
+    <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
     <title>OuterTune</title>
 </head>
 <body>
@@ -21,6 +22,9 @@
             <md-icon id="ham-menu-icn">menu</md-icon>
         </md-icon-button>
         <h1>OuterTune</h1>
+        <md-icon-button style="--md-icon-button-state-layer-height: 40px; --md-icon-button-state-layer-width: 40px;" onclick="document.getElementById('screensaver-dialog').setAttribute('open', '')">
+            <md-icon>preview</md-icon>
+        </md-icon-button>
     </div>
     <div class="menu" id="menu">
         <div class="menu-top-bar">
@@ -57,7 +61,7 @@
                 <md-icon>skip_next</md-icon>
             </md-icon-button>
         </div>
-        <div id="yt-player"></div>
+        
     </div>
     <md-dialog id="url-dialog"> 
         <div slot="headline">
@@ -70,6 +74,35 @@
         <div slot="actions">
             <md-text-button form="form-id" value="cancel">Cancel</md-text-button>
             <md-text-button form="form-id" onclick="addToPlaylist(document.getElementById('video-id-label').value)">Ok</md-text-button>
+        </div>
+    </md-dialog>
+    <md-dialog id="screensaver-dialog" style="width: 90vw; height: 80vh;"> 
+        <div slot="headline">
+          Screensaver
+        </div>
+        <form slot="content" id="form-id" method="dialog" onchange="changeScreenSaver()">
+            <md-outlined-select style="width: 100%; margin: 10px 0;" id="screen-saver-dropdown">
+                <md-select-option selected value="video">
+                  <div slot="headline">Video</div>
+                </md-select-option>
+                <md-select-option value="dvd">
+                  <div slot="headline">DVD</div>
+                </md-select-option>
+                <md-select-option value="matrix">
+                    <div slot="headline">Matrix</div>
+                </md-select-option>
+                <md-select-option value="pipes">
+                    <div slot="headline">Pipes</div>
+                </md-select-option>
+            </md-outlined-select>
+            <div id="yt-player"></div>
+            <iframe src="dvd.html" frameborder="0" id="dvd-screen-saver" width="100%" height="100%" style="display: none;"></iframe>
+            <iframe src="matrix.html" frameborder="0" id="matrix-screen-saver" width="100%" height="100%" style="display: none;"></iframe>
+            <iframe width="100%" height="100%" id="pipes-screen-saver" src="https://www.youtube.com/embed/LTMYLmyBZMs   " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: none;"></iframe>
+        </form>
+        <div slot="actions">
+            <md-text-button form="form-id" onclick="document.getElementById('screensaver-dialog').close()">Close</md-text-button>
+            <md-filled-button onclick="screenSaverFullscreen()">Fullscreen</md-filled-button>
         </div>
     </md-dialog>
 </body>

@@ -2,6 +2,8 @@ var mouseDownSlider = false;
 var hamMenuOpen = false;
 var playlist = [];
 var playlistIndex = 0;
+var videoInfo = {};
+var currentScreenSaver = "video";
 
 var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
@@ -12,7 +14,7 @@ var tag = document.createElement('script');
     function onYouTubeIframeAPIReady() {
     player = new YT.Player('yt-player', {
     height: '390',
-    width: '640',
+    width: '100%',
     videoId: '',
     playerVars: {
         'playsinline': 1
@@ -26,21 +28,33 @@ var tag = document.createElement('script');
 
 function onPlayerReady(event) {
     console.log("Player ready");
-
-    document.getElementById("thumbnail").src = "https://img.youtube.com/vi/" + player.getVideoData().video_id + "/maxresdefault.jpg";
-    fetch(`https://noembed.com/embed?dataType=json&url=https://www.youtube.com/watch?v=${player.getVideoData().video_id}`)
-        .then(res => res.json())
-        .then(data => document.getElementById("video-title").innerHTML = data.title)
-    fetch(`https://noembed.com/embed?dataType=json&url=https://www.youtube.com/watch?v=${player.getVideoData().video_id}`)
-        .then(res => res.json())
-        .then(data => document.getElementById("video-channel").innerHTML = data.author_name)
-    fetch(`https://noembed.com/embed?dataType=json&url=https://www.youtube.com/watch?v=${player.getVideoData().video_id}`)
-        .then(res => res.json())
-        .then(data => document.getElementById("video-channel").setAttribute("href", data.author_url))
+    console.log(player.getVideoData().video_id);
+    setTimeout(function() {
+        document.getElementById("thumbnail").src = "https://img.youtube.com/vi/" + player.getVideoData().video_id + "/maxresdefault.jpg";
+        fetch(`https://noembed.com/embed?dataType=json&url=https://www.youtube.com/watch?v=${player.getVideoData().video_id}`)
+            .then(res => res.json())
+            .then(data => videoInfo = data)
+        console.log(videoInfo);
+        document.getElementById("video-channel").setAttribute("href", videoInfo.author_url);
+        document.getElementById("video-title").innerHTML = videoInfo.title;
+        document.getElementById("video-channel").innerHTML = videoInfo.author_name;
+        if (videoInfo.error == "400 Bad Request") {
+            setTimeout(function() {
+                onPlayerReady();
+            }, 100);
+        }
+    }, 100);
 }
 
 function onPlayerStateChange(event) {
-
+    console.log(event.data);
+    if (event.data == 2 && !document.getElementById("play_btn").hasAttribute("selected")) {
+        console.log("Paused through browser");
+        document.getElementById("play_btn").setAttribute("selected", "");
+    } else if (event.data == 3 && document.getElementById("play_btn").hasAttribute("selected")) {
+        console.log("Playing through browser");
+        document.getElementById("play_btn").removeAttribute("selected");
+    }
 }
 
 function togglePlay() {
@@ -201,4 +215,44 @@ startup();
 if ("serviceWorker" in navigator) {
     // register service worker
     navigator.serviceWorker.register("service-worker.js");
+}
+
+function changeScreenSaver() {
+    if (document.getElementById("screen-saver-dropdown").value == 'video') {
+        document.getElementById("yt-player").style.display = "block";
+        document.getElementById("dvd-screen-saver").style.display = "none";
+        document.getElementById("matrix-screen-saver").style.display = "none";
+        document.getElementById("pipes-screen-saver").style.display = "none";
+        currentScreenSaver = "video";
+    } else if (document.getElementById("screen-saver-dropdown").value == 'dvd') {
+        document.getElementById("yt-player").style.display = "none";
+        document.getElementById("dvd-screen-saver").style.display = "block";
+        document.getElementById("matrix-screen-saver").style.display = "none";
+        document.getElementById("pipes-screen-saver").style.display = "none";
+        currentScreenSaver = "dvd";
+    } else if (document.getElementById("screen-saver-dropdown").value == 'matrix') {
+        document.getElementById("yt-player").style.display = "none";
+        document.getElementById("dvd-screen-saver").style.display = "none";
+        document.getElementById("matrix-screen-saver").style.display = "block";
+        document.getElementById("pipes-screen-saver").style.display = "none";
+        currentScreenSaver = "matrix";
+    } else if (document.getElementById("screen-saver-dropdown").value == 'pipes') {
+        document.getElementById("yt-player").style.display = "none";
+        document.getElementById("dvd-screen-saver").style.display = "none";
+        document.getElementById("matrix-screen-saver").style.display = "none";
+        document.getElementById("pipes-screen-saver").style.display = "block";
+        currentScreenSaver = "pipes";
+    }
+}
+
+function screenSaverFullscreen() {
+    if (currentScreenSaver == "video") {
+        document.getElementById('yt-player').requestFullscreen()
+    } else if (currentScreenSaver == "dvd") {
+        document.getElementById('dvd-screen-saver').requestFullscreen()
+    } else if (currentScreenSaver == "matrix") {
+        document.getElementById('matrix-screen-saver').requestFullscreen()
+    } else if (currentScreenSaver == "pipes") {
+        document.getElementById('pipes-screen-saver').requestFullscreen()
+    }
 }

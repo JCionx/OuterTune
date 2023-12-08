@@ -24,3 +24,6 @@ import '@material/web/menu/sub-menu.js';
 import '@material/web/menu/menu.js';
 import '@material/web/icon/icon.js';
 import '@material/web/slider/slider.js';
+import '@material/web/select/filled-select.js';
+import '@material/web/select/outlined-select.js';
+import '@material/web/select/select-option.js';
