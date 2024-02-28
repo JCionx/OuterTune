@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Secular+One&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1" rel="stylesheet" />
+        <title>Install OuterTune in htmlOS(X)</title>
+    </head>
+    <body>
+        <main>
+            <span style="font-weight: bold; font-size: 25px;">OuterTune for htmlOS(X)</span>
+            <div class="buttons">
+                <button class="install-btn" onclick='parent.postMessage({"action": "htmlosx.installApp", "id": "com.jcionx.outertune", "name": "OuterTune", "icon": "https://jcionx.github.io/OuterTune/icon-192.png", "url": "https://jcionx.github.io/OuterTune/"}, "*")'>Install</button>
+                <button onclick="window.location = 'https://jcionx.github.io/OuterTune/'">Open in the browser</button>
+            </div>
+        </main>
+    </body>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #17130c;
+            color: #f4be5b;
+            font-family: 'Roboto', sans-serif;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            border: solid 3px #f4be5b;
+            background-color: transparent;
+            color: #f4be5b;
+            font-family: 'Secular One', sans-serif;
+            font-size: 20px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .install-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: solid 3px #f4be5b;
+            border-radius: 5px;
+            background-color: #f4be5b;
+            color: #17130c;
+            font-family: 'Secular One', sans-serif;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</html>
